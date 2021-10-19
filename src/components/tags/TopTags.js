@@ -1,30 +1,44 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useState,useEffect } from 'react'
+import axios from '../../config/axios'
 
-const TopTags =(props)=>{
-    const [topTags, setTopTags] = useState([])
+const TopTags =({id})=>{
+    const [tags,setTags] = useState([])
 
     useEffect(()=>{
-        axios.get(`https://api.stackexchange.com/2.3/users/${props.id}/tags?order=desc&sort=popular&site=stackoverflow`)
-        .then(response=>{
-            setTopTags(response.data.items)
-            console.log('top tags ', response.data.items)
-        })
-        .catch(err=>console.log(err))
-    })
+        axios.get(`/2.3/users/${id}/tags?order=desc&sort=popular&site=stackoverflow`)
+            .then(response=>{
+                setTags(response.data.items)
+                console.log('top tags---',response.data.items)
+            })
+            .catch(err=>console.log(err))
+    },[id])
 
     return(
         <div>
-            top tags component
-            <ul>
-                {
-                    topTags.map(tag=>{
-                        return(
-                            <li key={tag.name}><button>{tag.name} </button> - score- {tag.count} </li>
-                        )
-                    })
-                }
-            </ul>
+            <h1>Top Tags</h1>
+            {/* {
+                tags.map(tag=> ( 
+                    
+                    // <>
+                    //     <td key={tag.name}>{tag.name}</td>
+                    //     <span>Score - {tag.count}</span>
+                    // </>    
+                ))
+            } */}
+            <table>
+                <tbody>
+                    {
+                        tags.map(tag=>{
+                            return(
+                                <tr key={tag.name}>
+                                    <td>{tag.name}</td>
+                                    <td> Score - {tag.count}</td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
         </div>
     )
 }

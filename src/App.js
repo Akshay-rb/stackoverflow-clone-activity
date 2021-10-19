@@ -1,29 +1,24 @@
 import React from 'react'
-import { BrowserRouter, Link , Route } from 'react-router-dom';
+import { BrowserRouter, Route , Switch } from 'react-router-dom';
+import LoginForm from './components/login/LoginForm';
 
 import QuestionsList from './components/questions/QuestionsList';
 import UserShow from './components/users/UserShow';
 
-const isLoggedIn =true
-
 function App() {
   return (
     <div className="App">
-        <h1>Stackoverflow clone</h1>
-        {/* <BrowserRouter>
-          <Link to ='/questions' />
-          <Route path='' ></Route>
-        </BrowserRouter> */}
+        {/* <h1></h1>
+        <header>
+          <a href="" className="logo">Stackoverflow clone</a>
+          <a href="" className="profile">Akshay</a>
+        </header> */}
         <BrowserRouter>
-            
-            <Link to='/'>Login</Link>
-            {isLoggedIn ? (<Link to='/questions' >featured questions</Link>) :'please login'}
-            
-
+          <Switch>
+            <Route path='/' component={LoginForm} exact={true} />
             <Route path='/questions' component={QuestionsList} exact={true} />
-            {/* <Route path='/' component={QuestionsList}  /> */}
-            <Route path ='/users/:id' component={UserShow}/>
-         
+            <Route path ='/users/:id' component={UserShow}/> 
+          </Switch>
         </BrowserRouter>
     </div>
   );

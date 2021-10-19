@@ -1,5 +1,6 @@
-import axios from 'axios'
+import axios from '../../config/axios'
 import React, { useEffect, useState } from 'react'
+import TopQuestions from '../questions/TopQuestions'
 import TopTags from '../tags/TopTags'
 
 const UserShow =(props)=>{
@@ -7,7 +8,7 @@ const UserShow =(props)=>{
     const [userData, setUserData] = useState([])
 
     useEffect(()=>{
-        axios.get(`https://api.stackexchange.com/2.3/users/${props.match.params.id}?order=desc&sort=reputation&site=stackoverflow`)
+        axios.get(`/2.3/users/${props.match.params.id}?order=desc&sort=reputation&site=stackoverflow`)
         .then(response=>{
             setUserData(response.data.items)
             console.log('userShow response - ',response.data.items)
@@ -36,7 +37,10 @@ const UserShow =(props)=>{
                             <a href={user.link} > {user.display_name} </a>
                             <p>member since {getDate(user.creation_date)}</p>
                             <hr />
-                            <TopTags id={user.user_id} />
+                            <TopTags id={user.user_id}/>
+                            <hr />
+                            <TopQuestions id={user.user_id} />
+                            
                         </React.Fragment>
                     )
                 })
