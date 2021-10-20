@@ -69,7 +69,7 @@ const UserShow =(props)=>{
           <hr />
             <TopTags id={user.user_id}/>
             <hr />
-            <TopQuestions id={user.user_id} />
+            <TopQuestions id={user.user_id} name={userData.username} />
         </div>
     )
 }
